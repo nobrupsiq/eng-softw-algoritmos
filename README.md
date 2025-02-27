@@ -5,5 +5,5 @@
     <img src="./img/logo.png" width="280px" alt="Logo univassouras"/>
 </p>
 <p align="center">
-    <img src="./img/logo_eng.png" width="140px" alt="Logo univassouras"/>
+    <img src="./img/logo_eng.png" width="200px" alt="Logo univassouras"/>
 </p>

@@ -33,28 +33,32 @@ def adicionar_produto(cod, nome, quantidade, preco):
         # Retornei a lista pq se eu não retornar a lista irá sobrescrever o meu produto
         return estoque_de_produtos
     estoque_de_produtos[cod] = (nome, quantidade, preco)
-    print(f'Produto: "{nome}" adicionado!')
+    print(f'Produto "{nome}" adicionado com sucesso!')
     return estoque_de_produtos
 
 # Tomei uma surra aqui, tinha esquecido que tuplas são imutaveis, a maneira que consegui foi transformando a tupla em lista e depois transformar a lista em tupla de novo, não sei se é bom fazer isso, mas foi o que eu pensei.
 def atualizar_quantidade_de_estoque(cod, quantidade):
     if cod not in estoque_de_produtos:
-        print(f'Produto {cod[0]} não encontrado no estoque!')
+        print(f'Produto com o código "{cod}" não encontrado no estoque!')
         return estoque_de_produtos
     estoque_lista = list(estoque_de_produtos[cod])
     estoque_lista[1] = quantidade
     estoque_de_produtos[cod] = tuple(estoque_lista)
-    print(f'Estoque do produto: "{estoque_de_produtos[cod][0]}" atualizado!')
+    print(f'Quantidade de "{estoque_de_produtos[cod][0]}" atualizada para "{quantidade}"!')
     return estoque_de_produtos
 
 def listar_produtos():
-    print('oi')
+    if not estoque_de_produtos:
+        print('Nenhum produto cadastrado!')
+        return estoque_de_produtos
+    for i, j in estoque_de_produtos.items():
+        print(f'Codigo: {i} | Produto: {j[0]} | Quantidade: {j[1]} | Preço: R$ {j[2]:.2f}')
+    return estoque_de_produtos
 
-adicionar_produto(1, 'Computador', 20, 2400)
-adicionar_produto(2, 'Placa de video', 32, 3699)
-adicionar_produto(3, 'Geladeira', 32, 3699)
-
-atualizar_quantidade_de_estoque(1, 50)
-
-for i, j in estoque_de_produtos.items():
-    print(i, j)
+# Depois que eu descobri esse looping na função acima, tudo ficou mais claro, então essa função ficou menos dificil de fazer.
+def calcular_valor_total_do_estoque():
+    total = 0
+    for i, j in estoque_de_produtos.items():
+        total += j[1] * j[2]
+    print(f'O valor total do estoque é de R$ {total:.2f}')
+    return total

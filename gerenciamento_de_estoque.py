@@ -51,6 +51,7 @@ def listar_produtos():
     if not estoque_de_produtos:
         print('Nenhum produto cadastrado!')
         return estoque_de_produtos
+    print('Estoque atual: ')
     for i, j in estoque_de_produtos.items():
         print(f'Codigo: {i} | Produto: {j[0]} | Quantidade: {j[1]} | Preço: R$ {j[2]:.2f}')
     return estoque_de_produtos

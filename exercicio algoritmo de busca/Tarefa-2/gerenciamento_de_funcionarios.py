@@ -1,15 +1,8 @@
-# A empresa Algtech empresa possui um banco de dados contendo 100.000 funcionários. Cada 
-# funcionário possui um ID único e um nome.
-# O setor de Recursos Humanos (RH) frequentemente precisa buscar funcionários pelo ID. 
-# Existem dois cenários distintos:
-#   1. Cenário 1: A lista de funcionários não está ordenada.
-#   2. Cenário 2: A lista de funcionários está ordenada pelo ID.
-# A empresa quer saber qual método de busca é mais eficiente para recuperar os dados do 
-# funcionário e melhorar a performance do sistema.
-
+# 1. Cenário 1: A lista de funcionários não está ordenada.
 
 import random
 import string
+import time
 
 funcionarios = []
 
@@ -19,21 +12,55 @@ def gerar_nome():
     sobrenome = ''.join(random.choices(letras, k=7))  # Sobrenome de 7 letras
     return nome.capitalize() + " " + sobrenome.capitalize()
 
-for i in range(1, 5):
+id_aleatorio = random.sample(range(1, 100001), 100000)
+
+for identificador in id_aleatorio:
     funcionario = {
-        "id": i,
+        "id": identificador,
         "nome": gerar_nome()
     }
 
     funcionarios.append(funcionario)
 
-print(funcionarios)
+def busca_sequencial(lista, id):
+    for index in lista:
+        if index["id"] == id:
+            return index
+    return -1
 
-[
-    {'id': 1, 'nome': 'Mozij Bwxugth'}, 
-    {'id': 2, 'nome': 'Lfuhx Ngvwrlu'}, 
-    {'id': 3, 'nome': 'Zocad Owzyeml'}, 
-    {'id': 4, 'nome': 'Oymgc Agcglfp'}
-]
+
+# 2. Cenário 2: A lista de funcionários está ordenada pelo ID
+
+lista_funcionarios_ordenada = sorted(funcionarios, key=lambda x: x["id"]) # Interessante essa função anonima do sorted, não conhecia, eu nao estava conseguindo ordenar a lista pelo ID. O sorted não estava encontrando um numero ou uma letra para ordenar, o key=lambda diz que para cada funcionario['id'] eu vou ordenar, serve como um direcionamento para o ID. Cada erro é uma oportunidade de aprender algo novo.
+
+def busca_binaria(lista, id):
+  pos_inicial = 0
+  pos_final = len(lista) -1
+
+  while pos_inicial <= pos_final:
+    pos_meio = (pos_inicial + pos_final) // 2
+
+    if lista[pos_meio]["id"] == id:
+      return lista[pos_meio]
+    if lista[pos_meio]["id"] > id:
+      pos_final = pos_meio -1
+    else:
+      pos_inicial = pos_meio + 1
+  return -1
+
+# TEMPO DA BUSCA NÃO ORDENADA COM BUSCA SEQUENCIAL
+inicio = time.time()
+resultado_busca_sequencial = busca_sequencial(funcionarios, 67)
+tempo_da_busca_sequencial = time.time() - inicio
+
+# TEMPO DA BUSCA ORDENADA COM BUSCA BINARIA
+inicio = time.time()
+resultado_busca_binaria = busca_binaria(lista_funcionarios_ordenada, 67)
+tempo_da_busca_binaria = time.time() - inicio
+
+print(f'Busca sequencial encontrou: {resultado_busca_sequencial} em {tempo_da_busca_sequencial:.6f} segundos')
+print(f'Busca Binaria encontrou: {resultado_busca_binaria} em {tempo_da_busca_binaria:.6f} segundos')
+
+
 
 

@@ -1,10 +1,15 @@
+import random
+
 alvo = int(input('Qual o número deseja encontrar? '))
 tamanho_da_lista = int(input('Quer procurar em uma lista de quantos numeros? '))
 
 lista_de_numeros = []
 
-for numero in range(1, tamanho_da_lista):
+numeros_aleatorios = random.sample(range(1, tamanho_da_lista+1), tamanho_da_lista)
+for numero in numeros_aleatorios:
     lista_de_numeros.append(numero)
+
+lista_ordenada = sorted(lista_de_numeros) # Garantindo a lista ordenada
 
 def busca_binaria(lista, alvo):
     lista_ordenada = sorted(lista)

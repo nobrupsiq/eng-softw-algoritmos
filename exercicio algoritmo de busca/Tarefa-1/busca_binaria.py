@@ -1,4 +1,10 @@
 alvo = int(input('Qual o número deseja encontrar? '))
+tamanho_da_lista = int(input('Quer procurar em uma lista de quantos numeros? '))
+
+lista_de_numeros = []
+
+for numero in range(1, tamanho_da_lista):
+    lista_de_numeros.append(numero)
 
 def busca_binaria(lista, alvo):
     lista_ordenada = sorted(lista)
@@ -16,11 +22,10 @@ def busca_binaria(lista, alvo):
             pos_inicial = pos_meio + 1
     return -1
 
-lista = [23, 5, 87, 12, 49, 3, 66, 71, 19, 34, 8, 56, 91, 14, 42]
 
-resultado = busca_binaria(lista, alvo)
+resultado = busca_binaria(lista_de_numeros, alvo)
 
 if resultado != -1:
-    print(f'A posição do alvo {alvo} na lista: {resultado}')
+    print(f'A posição do alvo {alvo} na lista é: {resultado}')
 else:
     print(f'Alvo não encontrado na lista!')

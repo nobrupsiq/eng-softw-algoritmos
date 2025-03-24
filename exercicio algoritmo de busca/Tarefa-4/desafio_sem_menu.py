@@ -8,7 +8,6 @@ import random
 import time
 
 lista_de_numeros = []
-historico_do_usuario = []
 
 numeros_aleatorios = random.sample(range(1, 1000001), 1000000)
 

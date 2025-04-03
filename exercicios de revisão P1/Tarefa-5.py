@@ -13,15 +13,24 @@
 
 def calculo_inss(salario):
     if salario > 0 and salario <= 1500:
-        calculo = salario * 7.5
-        return  calculo
+        return salario * 0.075
+    elif salario > 1500.01 and salario <= 3000:
+        return salario * 0.12
 
 
-# def impostos(salario):
-#     #INSS
-#     if salario > 0 and salario <= 1500:
+def calculo_irpf(salario):
+    if salario > 0 and salario <= 2000:
+        return salario
+    elif salario > 2000.01 and salario <= 4000:
+        return salario * 0.075
+    else:
+        return salario * 0.15
 
-#     #IRPF
+def calcular_impostos(salario):
+    imposto_inss = calculo_inss(salario)
+    imposto_irpf = calculo_irpf(salario)
+    calculo_total = salario - imposto_inss - imposto_irpf
+    return f'Salário liquído -> R${calculo_total:.2f}'
 
-resultado = calculo_inss(1500)
+resultado = calcular_impostos(3000)
 print(resultado)

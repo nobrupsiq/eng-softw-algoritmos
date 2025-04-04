@@ -13,18 +13,33 @@ lista_de_alunos ={
 }
 
 
-materia = input('Qual a matéria: ')
-
-def adicionar_aluno(nome, notas):
+def adicionar_aluno_e_notas(nome, notas):
+    materia = input('Qual a matéria? ')
     lista_de_alunos[materia.capitalize()][nome] = {}
-    lista_de_alunos[materia.capitalize()][nome] = [notas]
+    lista_de_alunos[materia.capitalize()][nome]["notas"] = [notas]
     return lista_de_alunos
 
 
 def exibir_alunos_e_notas():
-    for materia, nome in lista_de_alunos.items():
-        print(nome)
+    for materia, alunos in lista_de_alunos.items():
+        print(f'Matéria: {materia}')
+        for nome, nota_do_aluno in alunos.items():
+            notas = ', '.join(list(map(str, nota_do_aluno['notas']))) # Essa eu tive que pesquisar... As notas estavam sendo exibidas assim Notas: [3,4,5] Dentro de uma lista... Não estava conseguindo tirar os colchetes para exibição. Pesquisei, mas o importante é que eu entendi o que esta acontecendo nessa linha de código.
+            print(f'Aluno: {nome} | Notas: {notas}')
 
 
-adicionar_aluno('Bruno', 5)
-exibir_alunos_e_notas()
+while True:
+
+    print("""
+    ----- Cadastro de Aluno -----
+          
+     1 - Adicionar aluno e nota
+     2 - Exibir alunos e notas
+     3 - Calcular média dos alunos
+          
+    """)
+
+    opcao = input('Sua escolha: ')
+
+    if opcao == '1':
+        adicionar_aluno_e_notas()

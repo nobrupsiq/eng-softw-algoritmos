@@ -17,14 +17,14 @@ materia = input('Qual a matéria: ')
 
 def adicionar_aluno(nome, notas):
     lista_de_alunos[materia.capitalize()][nome] = {}
-    lista_de_alunos[materia.capitalize()][nome] = notas
+    lista_de_alunos[materia.capitalize()][nome] = [notas]
     return lista_de_alunos
 
 
-adicionar_aluno('Bruno', [2,5])
-adicionar_aluno('Borba', [4,1])
+def exibir_alunos_e_notas():
+    for materia, nome in lista_de_alunos.items():
+        print(nome)
 
-for disciplina, nome in lista_de_alunos.items():
-    print(nome.get('Borba'))
 
-# print(lista_de_alunos)
+adicionar_aluno('Bruno', 5)
+exibir_alunos_e_notas()

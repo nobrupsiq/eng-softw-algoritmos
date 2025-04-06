@@ -11,35 +11,43 @@ lista_de_alunos ={}
 def adicionar_aluno_e_notas(nome, notas, materia):
     if materia not in lista_de_alunos:
       lista_de_alunos[materia] = {}
-    
-    lista_de_alunos[materia][nome] = {}
-    lista_de_alunos[materia][nome]["notas"] = notas
+
+    if nome in lista_de_alunos[materia]:
+        print('ERRO -> Esse aluno ja foi adicionado a essa matéria!')
+    else:
+      lista_de_alunos[materia][nome] = {}
+      lista_de_alunos[materia][nome]["notas"] = notas
     return lista_de_alunos
  
 
-
 def exibir_alunos_e_notas():
-    for materia, alunos in lista_de_alunos.items():
-        print(f'\nMatéria: {materia}')
-        for nome, nota_do_aluno in alunos.items():
-            notas = ', '.join(list(map(str, nota_do_aluno['notas']))) # Essa eu tive que pesquisar... As notas estavam sendo exibidas assim Notas: [3,4,5] Dentro de uma lista... Não estava conseguindo tirar os colchetes para exibição. Pesquisei, mas o importante é que eu entendi o que esta acontecendo nessa linha de código.
-            print(f' -> Aluno(a): {nome} | Notas: {notas}')
+    if len(lista_de_alunos) > 0:
+      for materia, alunos in lista_de_alunos.items():
+          print(f'\nMatéria: {materia}')
+          for nome, nota_do_aluno in alunos.items():
+              notas = ', '.join(list(map(str, nota_do_aluno['notas']))) # Essa eu tive que pesquisar... As notas estavam sendo exibidas assim Notas: [3,4,5] Dentro de uma lista... Não estava conseguindo tirar os colchetes para exibição. Pesquisei, mas o importante é que eu entendi o que esta acontecendo nessa linha de código.
+              print(f' -> Aluno(a): {nome} | Notas: {notas}')
+    else:
+       print('Lista de alunos vazia!')
 
 def calcular_media_dos_alunos():
-    for materia, alunos in lista_de_alunos.items():
-        print(f'\nMatéria: {materia}')
-        for nome, nota_dos_alunos in alunos.items():
-            media = sum(nota_dos_alunos['notas']) / len(notas)
-            if media >= 7:
-              print(f' -> Nome: {nome} | Média: {media:.2f} | Aluno(a) aprovado!')
-            else:
-              print(f' -> Nome: {nome} | Média: {media:.2f} | Aluno(a) reprovado!')
-  
+    if len(lista_de_alunos) > 0:
+      for materia, alunos in lista_de_alunos.items():
+          print(f'\nMatéria: {materia}')
+          for nome, nota_dos_alunos in alunos.items():
+              media = sum(nota_dos_alunos['notas']) / len(notas)
+              if media >= 7:
+                print(f' -> Nome: {nome} | Média: {media:.2f} | Aluno(a) aprovado!')
+              else:
+                print(f' -> Nome: {nome} | Média: {media:.2f} | Aluno(a) reprovado!')
+    else:
+       print('Lista de alunos vazia!')
+
 while True:
     print("""
     ----- Cadastro de Aluno -----
           
-     1 - Adicionar aluno e nota
+     1 - Adicionar aluno(a) e notas
      2 - Exibir alunos e notas
      3 - Calcular média dos alunos
      4 - Sair
@@ -61,6 +69,4 @@ while True:
         break
     else:
         print("Você digitou algo errado! Vamos de novo.")
-    
-
-print(lista_de_alunos)
+  

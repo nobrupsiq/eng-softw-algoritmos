@@ -56,28 +56,52 @@ while True:
 
   if opcao == '1':
     nome = input('Nome: ').capitalize()
-    telefone = input('Telefone EX: (22)99999-9999: ')
-    email = input('Email: ')
-    cadastrar_contato(nome, telefone, email)
-    print('\nAdicionando contado na agenda... ⌛')
-    time.sleep(2)
-    print(f'Contato "{nome}" adicionado com sucesso!')
+    for contato in agenda:
+      if contato['Nome'] == nome:
+        print(f'O contato "{nome}" já existe na agenda!')
+        break
+    else:
+      telefone = input('Telefone EX: (22)99999-9999: ')
+      email = input('Email: ')
+      cadastrar_contato(nome, telefone, email)
+      print('\nAdicionando contado na agenda... ⌛')
+      time.sleep(2)
+      print(f'Contato "{nome}" adicionado com sucesso!')
   elif opcao == '2':
-    print('\nCarregando contatos... aguarde ⌛\n')
-    time.sleep(2)
-    listar_contatos()
+    if len(agenda) > 0:
+      print('\nCarregando contatos... aguarde ⌛\n')
+      time.sleep(2)
+      listar_contatos()
+    else:
+      print('\nCarregando contatos... aguarde ⌛\n')
+      time.sleep(2)
+      print("Agenda vazia!")
   elif opcao == '3':
     nome = input('Nome: ').capitalize()
-    print('\nBuscando contato... aguarde ⌛')
-    time.sleep(2)
-    print(f'Contato "{nome}" encontrado!\n')
-    buscar_contato(nome)
+    for contato in agenda:
+      if contato['Nome'] == nome:
+        print('\nBuscando contato... aguarde ⌛')
+        time.sleep(2)
+        print(f'Contato "{nome}" encontrado!\n')
+        buscar_contato(nome)
+        break
+    else:        
+      print('\nBuscando contato... aguarde ⌛')
+      time.sleep(2)
+      print(f'O contado "{nome}" não está na agenda.')
   elif opcao == '4':
     nome = input('Nome: ').capitalize()
-    print('Excluindo contato... aguarde ⌛')
-    time.sleep(2)
-    excluir_contato(nome)
-    print(f'Contato "{nome}" excluido com sucesso!\n')
+    for contato in agenda:
+      if contato['Nome'] == nome:
+        print('Buscando contato... aguarde ⌛')
+        time.sleep(2)
+        excluir_contato(nome)
+        print(f'Contato "{nome}" excluido com sucesso!\n')
+        break
+    else:
+      print('\nBuscando contato... aguarde ⌛')
+      time.sleep(2)
+      print(f'O contato "{nome}" não existe na agenda!')
   elif opcao == '5':
     print('Saindo...')
     break

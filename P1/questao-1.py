@@ -9,19 +9,27 @@
 #   (D). Caso a média seja superior ou igual a 8, exibir que o aluno foi
 # # aprovado. Caso contrário, exibir que o aluno foi reprovado.
 
+
+def calcular_media(notas):
+    return sum(notas) / len(notas)
+
 nome = input('Nome do aluno: ').capitalize()
-notas = input("Digite as notas separadas por espaço: ")
 
-def calcular_media(nome, notas):
-    notas = list(map(float, notas.split()))
-    media = sum(notas) / len(notas)
+while True:
+  notas = input("Digite as notas separadas por espaço (Minimo 7 notas): ")
+  notas.replace(',', '.')
+  notas_do_aluno = list(map(float, notas.split()))
 
-    if len(notas) < 7:
-        print("Digite pelo menos 7 notas!")
-    elif media >= 8:
-        print(f'Aluno: {nome} | Média: {media:.2f} | Aluno aprovado!')
-    else: 
-        print(f'Aluno: {nome} | Média: {media:.2f} | Aluno reprovado!')
-    return media
 
-calcular_media(nome, notas)
+  if len(notas_do_aluno) < 7:
+    print("Digite pelo menos 7 notas!")
+  else:
+    break
+
+media = calcular_media(notas_do_aluno)
+
+if media >= 8:
+  print(f'Aluno: {nome} | Média: {media:.2f} | Aluno aprovado!')
+else: 
+  print(f'Aluno: {nome} | Média: {media:.2f} | Aluno reprovado!')
+

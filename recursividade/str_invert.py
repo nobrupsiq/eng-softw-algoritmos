@@ -3,7 +3,7 @@
 def invertString(nome):
   if len(nome) == 0:
     return nome
-
+  
   return nome[-1] + invertString(nome[0:-1])
 
 resultado =  invertString('python')

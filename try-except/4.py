@@ -30,4 +30,28 @@ def verificador_de_senha():
   finally:
     print('Programa encerrado.')
 
-verificador_de_senha()
+# Novo aprendizado, não sabia que dava pra usar o Exception assim personalizado
+class SenhaInvalidaError(Exception):
+    pass
+
+def verificador_de_senha2():
+    try:
+      senha = input('Senha: [Min 8 caracteres + 1 número]: ')
+      
+      # Verificar se o tamanho da senha é menor que 8 caracteres
+      if len(senha) < 8:
+        raise SenhaInvalidaError('A senha deve ter no mínimo 8 caracteres.')
+      
+      # Verifica se tem algum digito numerico na senha
+      if not any(char.isdigit() for char in senha):
+        raise SenhaInvalidaError('A senha deve conter pelo menos um número.')
+      
+      print('Senha aceita!')
+    except SenhaInvalidaError as e:
+      print('Erro:', e)
+    else:
+      print('Programa executado.')
+    finally:
+      print('Programa encerrado.')
+
+verificador_de_senha2()
